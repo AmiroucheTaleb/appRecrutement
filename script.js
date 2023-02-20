@@ -4,6 +4,7 @@ mongoose.set("strictQuery", false);
 const Postulant = require("./models/postulant");
 const Recruteur = require("./models/recruteur");
 const admin = require("./models/admin");
+const app = express();
 mongoose.connect(
   "mongodb+srv://fabrikteam:N3a4iPTxAFogwB0M@apprecrutement.jvyhlym.mongodb.net/?retryWrites=true&w=majority",
   () => {
@@ -12,6 +13,23 @@ mongoose.connect(
   (e) => console.error(e)
 );
 
+// Configurer le port
+app.set("port", 3000);
+
+// Définir la route pour la page d'accueil
+app.get("/", (req, res) => {
+  res.send("Bienvenue sur la page d'accueil");
+});
+
+// Définir la route pour la page "À propos"
+app.get("/about", (req, res) => {
+  res.send("À propos de nous");
+});
+
+// Écouter les requêtes entrantes
+app.listen(app.get("port"), () => {
+  console.log(`Serveur en cours d'écoute sur le port ${app.get("port")}`);
+});
 // const newPostulant = new Postulant({
 //   username: "rabah",
 //   password: "password123",
@@ -50,11 +68,11 @@ mongoose.connect(
 //   }
 // });
 
-admin
-  .find()
-  .then((admin) => {
-    console.log(admin);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// admin
+//   .find()
+//   .then((admin) => {
+//     console.log(admin);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
