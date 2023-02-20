@@ -11,6 +11,6 @@ const RecruteurSchema = new mongoose.Schema({
   },
 });
 
-const Postulant = User.discriminator("Postulant", PostulantSchema);
+const Recruteur = User.discriminator("Recruteur", RecruteurSchema);
 
-module.exports = Postulant;
+module.exports = Recruteur;
