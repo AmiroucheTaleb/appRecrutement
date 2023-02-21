@@ -5,6 +5,7 @@ mongoose.set("strictQuery", false);
 
 // Import des routes
 const postulantRoutes = require("./routes/postulantroutes");
+const RecruteurRoutes = require("./routes/recruteurRoutes");
 
 // Configuration de l'application Express
 const app = express();
@@ -19,8 +20,9 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie"))
   .catch((err) => console.log("Erreur de connexion à MongoDB", err));
 
-// Configuration des routes
+// CRUD de postulant
 app.use("/api", postulantRoutes);
+app.use("/api", RecruteurRoutes);
 
 // Configuration du port d'écoute
 const port = process.env.PORT || 3000;
