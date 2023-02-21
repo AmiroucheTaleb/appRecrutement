@@ -4,7 +4,7 @@
   "description": "",
   "main": "scipte.js",
   "scripts": {
-    "devstart": "nodemon script.js"
+    "devstart": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

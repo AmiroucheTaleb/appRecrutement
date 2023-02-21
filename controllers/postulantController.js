@@ -1,52 +1,72 @@
 const Postulant = require("../models/postulant");
-// Fonction pour créer un nouveau postulant
-async function createPostulant(postulantData) {
+// liste des postulants
+const getAllPostulants = async (req, res) => {
   try {
-    const Postulant = new Postulant(postulantData);
-    await Postulant.save();
-    return Postulant;
+    const postulant = await Postulant.find();
+    res.json(postulant);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ message: error.message });
   }
-}
+};
+// nouveau postulant
 
-// Fonction pour récupérer un postulant existant
-async function getPostulant(postulantId) {
+const createPostulant = async (req, res) => {
   try {
-    const Postulant = await Postulant.findById(postulantId);
-    return Postulant;
+    const postulantData = req.body;
+    console.log(postulantData);
+    const postulant = new Postulant(postulantData);
+    await postulant.save();
+    res.json(postulant);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ message: error.message });
   }
-}
-
-// Fonction pour mettre à jour un postulant existant
-async function updatePostulant(postulantId, updateData) {
+};
+//récupérer un postulant
+const getPostulant = async (req, res) => {
   try {
-    const Postulant = await Postulant.findByIdAndUpdate(
+    const postulantId = req.params.id;
+    console.log("recuperation du postulant avec l'id : " + postulantId);
+    const postulant = await Postulant.findById(postulantId);
+    res.json(postulant);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// mettre à jour un postulant
+const updatePostulant = async (req, res) => {
+  try {
+    const postulantId = req.params.id;
+    const updateData = req.body;
+    console.log(updateData);
+    const postulant = await Postulant.findByIdAndUpdate(
       postulantId,
       updateData,
       { new: true }
     );
-    return Postulant;
+    res.json(postulant);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
-// Fonction pour supprimer un postulant existant
-async function deletePostulant(postulantId) {
+// supprimer un postulant
+const deletePostulant = async (req, res) => {
   try {
+    const postulantId = req.params.id;
+    console.log("postulannt supprimer");
     const result = await Postulant.findByIdAndDelete(postulantId);
-    return result;
+    res.json(result);
+    console.log(result);
   } catch (error) {
-    throw new Error(error);
+    res.status(500).json({ message: error.message });
   }
-}
-
+};
+//exportation des fonctions
 module.exports = {
   createPostulant,
   getPostulant,
   updatePostulant,
   deletePostulant,
+  getAllPostulants,
 };
