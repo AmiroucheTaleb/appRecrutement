@@ -1,4 +1,4 @@
-const Recruteur = require("../models/Recruteur");
+const Recruteur = require("../models/recruteur");
 // liste des Recruteurs
 const getAllRecruteurs = async (req, res) => {
   try {
